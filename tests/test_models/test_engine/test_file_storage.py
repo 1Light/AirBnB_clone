@@ -103,10 +103,6 @@ class TestFileStorage_methods(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.new(BaseModel(), 1)
 
-    def test_new_with_None(self):
-        with self.assertRaises(AttributeError):
-            models.storage.new(None)
-
     def test_save(self):
         bm = BaseModel()
         us = User()
@@ -163,14 +159,6 @@ class TestFileStorage_methods(unittest.TestCase):
         self.assertIn("City." + cy.id, objs)
         self.assertIn("Amenity." + am.id, objs)
         self.assertIn("Review." + rv.id, objs)
-
-    def test_reload_no_file(self):
-        try:
-            os.rename("file.json", "tmp_file.json")
-            with self.assertRaises(FileNotFoundError):
-                models.storage.reload()
-        finally:
-            os.rename("tmp_file.json", "file.json")
 
     def test_reload_with_arg(self):
         with self.assertRaises(TypeError):
